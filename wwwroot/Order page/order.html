@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bean & Brew</title>
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3"></script>
+    <!-- Styling -->
+     <link rel="stylesheet" href="order.css">
+     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+</head>
+
+
+<body>
+    <header>
+        <h1>Bean & Brew</h1>
+        <nav class="top-nav">
+            <a href="#">Order</a>
+            <a href="#">Products</a>
+            <a href="#">Locations</a>
+            <a href="#">About</a>
+            <a href="#"><img src="C:\Users\20257294\OneDrive - Farnborough College of Technology\Year 2\Web Development\Client-Side Web Project\Images\account-img-removebg-preview.png" alt="acc-img" class="account-icon"></a>
+        </nav>
+    </header>
+
+    <div id="app" class="main-container">
+        <h2>Order Here</h2>
+
+        <div v-for="coffee in coffees" :key="coffee.id" class="coffee-item">
+            <span>{{ coffee.name }} - ${{ coffee.price }}</span>
+            <button @click="addToOrder(coffee)">Add to Order</button>
+        </div>
+
+        <div class="summary" v-if="order.length">
+            <h2>Your Order</h2>
+
+            <ul>
+                <li v-for="(item, index) in order" :key="index">
+                    {{ item.name }} - ${{ item.price }}
+                </li>
+            </ul>
+            <p class="total">Total: ${{ total }}</p>
+
+            <button class="order-button" @click="placeOrder">Place Order</button>
+
+            <div v-if="orderMessage" class="order-message">
+                <p>{{ orderMessage }}</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    coffees: [
+                        { id: 1, name: 'Coffee 1', price: 5.00 },
+                        { id: 2, name: 'Coffee 2', price: 2.50 },
+                        { id: 3, name: 'Coffee 3', price: 4.00 },
+                        { id: 4, name: 'Coffee 4', price: 6.00 }
+                    ],
+                    order: [],
+                    orderMessage: ""
+                };
+            },
+
+            computed: {
+                total() {
+                    return this.order.reduce((sum, item) => sum + item.price, 0);
+                }
+            },
+
+            methods: {
+                addToOrder(coffee) {
+                    this.order.push(coffee);
+                },
+                
+                placeOrder() {
+                    this.orderMessage = "Order successfull - Thanks for using Bean & Brew";
+                    this.coffees = []
+                }
+            },
+        }).mount('#app');
+
+    </script>
+
+</body>
+</html>
