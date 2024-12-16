@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bean & Brew Coffee</title>
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3"></script>
+    <!-- Styling -->
+     <link rel="stylesheet" href="index.css">
+     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+     <link href="https://fonts.cdnfonts.com/css/sansation" rel="stylesheet">
+</head>
+
+
+<body>
+    <header>
+        <h1>Bean & Brew</h1>
+        <div class="top-nav-wrapper">
+            <nav class="top-nav">
+                <a href="#">Order</a>
+                <a href="#">Products</a>
+                <a href="#">Locations</a>
+            </nav>
+        </div>
+        <a href="#"><img src="./Images/icon-profile-white.png" alt="Account Icon" class="account-icon"></a>
+    </header>
+
+    <div id="app" class="main-content">
+        <!-- Order List -->
+        <div class="order-content">
+            <h2>Order List</h2>
+            <ul>
+                <li v-for="(item, index) in order" :key="index">
+                    {{ item.name }} x{{ item.quantity }} - £{{ (item.price * item.quantity).toFixed(2) }}
+                    <button class="order-remove-button" @click="removeFromOrder(index)">—</button>
+                </li>
+            </ul>
+            <p class="total-order">Total: £{{ total }}</p>
+            <button class="order-button" @click="placeOrder">ORDER</button>
+        </div>
+
+        <!-- Shop Content -->
+        <section class="shop-content">
+            <div class="shop-cards">
+                <div class="shop-card" v-for="coffee in coffees" :key="coffee.id">
+                    <div class="image-border">
+                        <img :src="coffee.image" :alt="coffee.name">
+                    </div>
+                    <div class="card-overlay">
+                        <span>
+                            <h2>
+                                {{ coffee.name }} - £{{ coffee.price.toFixed(2) }}
+                            </h2>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                            </p>
+                            <button @click="addToOrder(coffee)">+ Add</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    coffees: [
+                        { id: 1, name: 'Cappuccino', price: 4.49, image: './Images/galaxy-in-coffee-cup.jpg' },
+                        { id: 2, name: 'Latte', price: 3.99, image: './Images/galaxy-in-coffee-cup.jpg' },
+                        { id: 3, name: 'Espresso', price: 2.99, image: './Images/galaxy-in-coffee-cup.jpg' },
+                        { id: 4, name: 'Flat White', price: 4.00, image: './Images/galaxy-in-coffee-cup.jpg' },
+                        { id: 5, name: 'Americano', price: 3.99, image: './Images/galaxy-in-coffee-cup.jpg' },
+                        { id: 6, name: 'Iced Coffee', price: 2.99, image: './Images/galaxy-in-coffee-cup.jpg' },
+                        { id: 7, name: 'Cortado', price: 5.00, image: './Images/galaxy-in-coffee-cup.jpg' },
+                        { id: 8, name: 'Frappe', price: 4.00, image: './Images/galaxy-in-coffee-cup.jpg' },
+                        { id: 9, name: 'Double Espresso', price: 5.99, image: './Images/galaxy-in-coffee-cup.jpg' }
+                    ],
+                    order: []
+                };
+            },
+
+            computed: {
+                total() {
+                // Track sum of order
+                return this.order.reduce((sum, item) => sum + item.price, 0).toFixed(2);
+                }
+            },
+
+
+
+            methods: {
+                addToOrder(coffee) {
+                    // Check if the coffee is already in the order
+                    const existingCoffee = this.order.find((item) => item.id === coffee.id);
+                    if (existingCoffee) {
+                        existingCoffee.quantity++; 
+                    } 
+                    
+                    else {
+                        this.order.push({...coffee, quantity: 1 });
+                    }
+
+
+                    if (this.order.reduce((sum, item) => sum + item.quantity, 0) > 20) {
+                        alert("You can only add up to 20 items to your order.");
+                        existingCoffee ? existingCoffee.quantity-- : this.order.pop(); 
+                    }
+                },
+
+                removeFromOrder(index) {
+                    if (this.order[index].quantity > 1) {
+                        this.order[index].quantity--; 
+                    } else {
+                        this.order.splice(index, 1);
+                    }
+                },
+
+                placeOrder() {
+                    alert("Order placed successfully!");
+                    this.order = [];
+                }
+
+            }
+        }).mount('#app');
+
+    </script>
+</body>

@@ -1,0 +1,300 @@
+:root {
+    --font-size-base: 1rem; /* Base font size for scaling */
+    --font-size-large: 1.25rem;
+    --font-size-xlarge: 2rem;
+    --font-size-header: 2.5rem;
+    --primary-color: #6e3014;
+    --secondary-color: #cfa782;
+    --background-light: rgb(241, 241, 253);
+    --text-color-light: white;
+    --box-shadow-intense: 0 5px 20px var(--primary-color);
+    --box-shadow-light: 1px 8px 20px var(--secondary-color);
+    --margin-small: 1rem;
+    --margin-large: 4rem;
+    --gap: 2rem;
+}
+
+body {
+    font-family: 'sansation', sans-serif;
+    font-size: var(--font-size-large);
+    background-color: var(--background-light);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* ------ Top Header & Nav Bar ------ */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem;
+    padding: 0.1rem;
+    font-size: var(--font-size-large);
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+    border-radius: 2rem;
+    position: sticky;
+    top: 1rem;
+    transition: transform 0.8s ease, box-shadow 0.8s ease;
+    z-index: 100;
+}
+
+header:hover {
+    transform: scale(1.009);
+    box-shadow: var(--box-shadow-intense);
+}
+
+header h1 {
+    margin: 1rem;
+    padding-left: 2rem;
+    font-size: var(--font-size-header);
+}
+
+/* --- Nav / Account Options --- */
+.top-nav-wrapper {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.top-nav {
+    display: flex;
+    gap: 2.5rem;
+    justify-content: center;
+}
+
+.top-nav a {
+    color: var(--text-color-light);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: var(--font-size-large);
+    transition: transform 0.3s ease;
+}
+
+.top-nav a:hover {
+    transform: translateY(-0.2rem) scale(1.15);
+}
+
+.account-icon {
+    width: 3rem;
+    height: 3rem;
+    padding: 0 1.5rem 0 1rem;
+    transition: transform 0.2s ease;
+}
+
+.account-icon:hover {
+    transform: scale(1.05);
+}
+
+/* ------ Order Bar Content ------ */
+.main-content {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--gap);
+    margin: var(--margin-large);
+}
+
+/* Base order-content styles */
+.order-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 20%;
+    height: 80%;
+    margin-right: var(--margin-large);
+    min-width: 250px;
+    padding: 1rem;
+    background-color: var(--secondary-color);
+    color: var(--text-color-light);
+    border-radius: 0.5rem;
+    box-shadow: var(--box-shadow-light);
+    transition: all 0.5s ease;
+}
+
+.order-content h2 {
+    margin: 0.25rem;
+    text-align: center;
+    font-size: var(--font-size-xlarge);
+    text-decoration: underline;
+    font-style: italic;
+}
+
+.order-content ul {
+    list-style: none;
+    overflow-y: auto;
+    font-size: var(--font-size-large);
+    height: 60%;
+}
+
+.order-content li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.order-button,
+.order-remove-button {
+    padding: 0.5rem 1.5rem;
+    font-size: var(--font-size-large);
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+}
+
+.order-button:hover,
+.order-remove-button:hover {
+    background-color: #923c14;
+    transform: scale(1.05);
+}
+
+/* ------ Shop Content ------ */
+.shop-content {
+    flex-grow: 1;
+    width: 60%;
+}
+
+.shop-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(340px, 35vw, 250px), 1fr));
+    gap: clamp(2rem, 20vw, 6rem);
+    margin: clamp(1rem, 10vm, 2rem);
+}
+
+.shop-card {
+    position: relative;
+    background-color: var(--secondary-color);
+    color: var(--text-color-light);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.shop-card:hover {
+    transform: scale(1.05);
+    box-shadow: var(--box-shadow-light);
+}
+
+.shop-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border: 5px solid var(--primary-color);
+    border-radius: 0.5rem 0.5rem 0 0;
+    box-sizing: border-box;
+}
+
+.card-overlay {
+    padding: 1rem;
+}
+
+.card-overlay h2 {
+    text-decoration: underline;
+    margin: 0;
+}
+
+.card-overlay p {
+    font-size: var(--font-size-base);
+}
+
+.card-overlay button {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    padding: 0.5rem 1.4rem;
+    font-size: var(--font-size-large);
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: transform 0.4s ease, background-color 0.4s ease;
+}
+
+.card-overlay button:hover {
+    transform: scale(1.1);
+    background-color: #923c14;
+}
+
+/* ------ Responsive Design ------ */
+/* For screens smaller than 1400px */
+
+@media (max-width: 1400px) {
+    .main-content {
+        flex-wrap: wrap; 
+    }
+}
+
+
+/* For screens smaller than 900px */
+@media (max-width: 900px) {
+    .order-content {
+        position: sticky; 
+        top: 9rem; 
+        width: 100%;
+        padding: 1rem; 
+        z-index: 1000;  
+        font-size: var(--font-size-base); 
+        box-shadow: var(--box-shadow-intense);  
+        margin:0;
+    }
+
+    .order-content h2 {
+        font-size: var(--font-size-large); 
+    }
+
+    .order-content ul {
+        max-height: 150px; 
+        overflow-y: auto; 
+    }
+
+    .order-button {
+        font-size: var(--font-size-base);
+        padding: 0.4rem 1rem; 
+    }
+}
+
+@media (max-width: 600px) {
+    .order-content {
+        position: sticky; /* Fix the order content at the bottom */
+        bottom: o; /* Position at the bottom of the screen */
+        width: 100%; /* Make it full width */
+        height: 0; /* Allow it to resize */
+        padding: 0.5rem; /* Adjust padding */
+        z-index: 1000; /* Keep it on top */
+        font-size: var(--font-size-base); /* Adjust font size */
+        box-shadow: var(--box-shadow-intense); /* Add box shadow */
+        transition: transform 0.3s ease; /* Smooth transition */
+    }
+
+    .order-content h2 {
+        font-size: var(--font-size-large); /* Scale down the heading */
+    }
+
+    .order-content ul {
+        max-height: 0; /* Initially hide the order list */
+        overflow-y: hidden; /* Prevent scrolling */
+        transition: max-height 0.5s ease-out; /* Smooth transition */
+    }
+
+    .order-content.open ul {
+        max-height: 150px; /* Allow list to show when open */
+        overflow-y: auto; /* Enable scrolling when open */
+    }
+
+    .order-content .order-button {
+        font-size: var(--font-size-base); /* Adjust button size */
+        padding: 0.4rem 1rem; /* Reduce padding */
+    }
+
+    .order-content .order-remove-button {
+        font-size: var(--font-size-base); /* Adjust remove button size */
+        padding: 0.4rem 1rem; /* Reduce padding */
+    }
+}
